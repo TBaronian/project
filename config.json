@@ -1,9 +1,0 @@
-{
-  "lambda_min": 3e-7,
-  "lambda_N": 500,
-  "lambda_max": 7e-7,
-  "OPD_max": 12.005e-3,
-  "OPD_min": 12e-3,
-  "OPD_N": 500,
-  "OPD_err": 1e-9
-}
