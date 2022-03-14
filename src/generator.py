@@ -18,7 +18,7 @@ def main():
     k_vector = 2*pi/lambda_vector
     Temp = np.random.normal(3000.0, 200, 20)
 
-    output = [[Michaelson_Intereferometer_Action(Generate_White_Light(T), OPD) for OPD in OPD_vector] for T in Temp]
+    output = [[Add_Noise(Michaelson_Intereferometer_Action(Generate_White_Light(T), OPD), scale=1e-3) for OPD in OPD_vector] for T in Temp]
     return output
 
 
@@ -45,6 +45,20 @@ def Michaelson_Intereferometer_Action(input_spectrum: np.ndarray, OPD: float):
     output_spectrum = [mic_func(I, 2*pi/lambda_point) for [I, lambda_point] in input_tmp]
 
     return output_spectrum
+
+def Add_Noise(input_spectrum, scale):
+    """
+    Adds Random Noise paramterized via scale to the input spectrum. Noise is generated via a
+    normal distribution in k-space, with average intensity scale times total intensity of the
+    spectrum.
+    """
+    
+    intensity_avg = np.avg(input_spectrum)
+    noise_avg = intensity_avg * scale
+    noise_vector = noise_avg * np.random.chisquare(df=3, size=input_spectrum.size())
+    return input_spectrum + noise_vector
+
+    
 
 
 

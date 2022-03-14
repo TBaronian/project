@@ -1,6 +1,6 @@
 from __init__ import *
 
-def main():
+def main() -> any:
     """
     A routine for retruning the model that is expected from the setup, given perfect conditions
     in the form of a 2-valued input callable function (k, OPD) -> Intensity. This is to be fitted 
@@ -23,7 +23,7 @@ def main():
     white_light_normalized = lambda k, T: (white_light_func(k, T)/white_light_norm(T))
     after_interferometer_func = lambda k, OPD, T: white_light_normalized(k, T) * np.cos(OPD*k/2)**2 * 1/np.sqrt(2*np.pi*T_std**2) * np.exp(-(T-T_mean)**2/(2*T_std**2)) 
 
-    output_function = lambda k_val, OPD_val: (sp.integrate.quad((lambda T: (after_interferometer_func(k=k_val, OPD=OPD_val, T))), 0.0, +np.inf, epsrel=1e-9))
+    output_function = lambda k_val, OPD_val: (sp.integrate.quad((lambda Temp: (after_interferometer_func(k=k_val, OPD=OPD_val, T=Temp))), 0.0, +np.inf, epsrel=1e-9))
 
     print(output_function)
 
