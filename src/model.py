@@ -14,22 +14,26 @@ def main() -> any:
 
     T_mean = config['Temp_mean']
     T_std = config['Temp_std']
-    h_bar, c, k_b = constants.hbar, constants.speed_of_light, constants.Boltzmann
+    h_bar, c, k_b, sigma = constants.hbar, constants.speed_of_light, constants.Boltzmann, constants.Stefan_Boltzmann
     c1 = h_bar*c**2/(4*np.pi**3)
     c2 = h_bar*c/k_b
 
-    white_light_func = lambda k, T: c1*k**3/(np.exp(c2*k/T)-1)
-    white_light_norm = lambda T: (sp.integrate.quad((lambda k: (white_light_func(k, T))), 0.0, np.inf, epsrel=1e-12))
-    white_light_normalized = lambda k, T: (white_light_func(k, T)/white_light_norm(T))
-    after_interferometer_func = lambda k, OPD, T: white_light_normalized(k, T) * np.cos(OPD*k/2)**2 * 1/np.sqrt(2*np.pi*T_std**2) * np.exp(-(T-T_mean)**2/(2*T_std**2)) 
+    # TODO confirm normalization of bb spectrum.
 
-    output_function = lambda k_val, OPD_val: (sp.integrate.quad((lambda Temp: (after_interferometer_func(k=k_val, OPD=OPD_val, T=Temp))), 0.0, +np.inf, epsrel=1e-9))
+    white_light_func = lambda k, T: 1/(sigma * T**4) * c1*k**3 * np.exp(-c2*k/T)/(-np.exp(-c2*k/T)+1)
+
+    # Integrate out the temperature dependence
+
+    after_interferometer_func = lambda k, OPD, T: white_light_func(k, T) * np.cos(OPD*k/2)**2 * 1/np.sqrt(2*np.pi*T_std**2) * np.exp(-(T-T_mean)**2/(2*T_std**2)) 
+    T_vector = np.array(np.sort(np.random.normal(T_mean, T_std, int(1e9))))
+    #output_function = lambda k_val, OPD_val: (sp.integrate.quad((lambda Temp: (after_interferometer_func(k=k_val, OPD=OPD_val, T=Temp))), 0.0, +np.inf, epsrel=1e-9))
+    output_function = lambda k_val, OPD_val: sp.integrate.simpson(after_interferometer_func(k_val, OPD_val, T_vector), T_vector)
 
     print(output_function)
 
-    k_vec = 2*np.pi/np.linspace(3e-7, 7e-7 ,100, dtype=np.float64)
-    OPD_vec = np.linspace(1.2e-3, 1.2005e-3, 100, dtype=np.float64)
-    print(output_function(3e7, 1.2e-3))
+    # Test: TODO
+
+
     return output_function
 
 

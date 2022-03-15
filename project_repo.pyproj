@@ -24,7 +24,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src\generator.py" />
-    <Compile Include="imports.py" />
     <Compile Include="src\model.py" />
     <Compile Include="src\__init__.py" />
     <Compile Include="src\summarize.py" />
