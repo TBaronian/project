@@ -5,7 +5,7 @@ lambda_vector = ()
 h_bar, c, k_b = constants.hbar, constants.speed_of_light, constants.Boltzmann
 
 
-def main():
+def main(N=1):
     with open(os.path.join(DATA_DIR, "config.json"),'r') as infile:
         config = json.load(infile)
 
@@ -16,9 +16,10 @@ def main():
     OPD_vector = [np.random.normal(OPD, config['OPD_err']) for OPD in OPD_vector]
     #print(OPD_vector)
     k_vector = 2*pi/lambda_vector
-    Temp = np.random.normal(3000.0, 200, 20)
+    T = np.random.normal(3000.0, 200, N)
 
-    output = [[Add_Noise(Michaelson_Intereferometer_Action(Generate_White_Light(T), OPD), scale=1e-3) for OPD in OPD_vector] for T in Temp]
+    output = [Add_Noise(Michaelson_Intereferometer_Action(Generate_White_Light(T), OPD), scale=1e-3) for OPD in OPD_vector]
+    print("Observation Made!")
     return output
 
 
@@ -53,9 +54,9 @@ def Add_Noise(input_spectrum, scale):
     spectrum.
     """
     
-    intensity_avg = np.avg(input_spectrum)
+    intensity_avg = np.average(input_spectrum)
     noise_avg = intensity_avg * scale
-    noise_vector = noise_avg * np.random.chisquare(df=3, size=input_spectrum.size())
+    noise_vector = noise_avg * np.random.chisquare(df=3, size=len(input_spectrum))
     return input_spectrum + noise_vector
 
     

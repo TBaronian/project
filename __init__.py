@@ -10,6 +10,9 @@ import os
 import logging
 import json
 import csv
+from tqdm import tqdm
+import bayes_opt
+from bayes_opt import BayesianOptimization
 
 BASE_DIR = os.path.join(os.path.abspath(__file__), "..")
 DATA_DIR = os.path.join(BASE_DIR, 'data')
