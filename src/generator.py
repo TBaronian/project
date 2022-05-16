@@ -18,7 +18,7 @@ def main(N=1):
     k_vector = 2*pi/lambda_vector
     T = np.random.normal(3000.0, 200, N)
 
-    output = [Add_Noise(Michaelson_Intereferometer_Action(Generate_White_Light(T), OPD), scale=1e-3) for OPD in OPD_vector]
+    output = np.array([Add_Noise(Michaelson_Intereferometer_Action(Generate_White_Light(T), OPD), scale=1e-3) for OPD in OPD_vector])
     print("Observation Made!")
     return output
 

@@ -50,20 +50,41 @@ def test():
     params_0 = {'a': 0.0, 'b': 0.0, 'c': 0.0, 'd': 0.0}
     pbounds = {k: (params_0[k]-0.001, params_0[k]+0.001) for k in params_0.keys()}
     
-    model_func = lambda x, params: params['a'] + (1.0 + params['b'])*x + params['c']*x**2 + params['d']*x**3
+    model_func = lambda x, params: 1e-7*(params['a'] + (1.0 + params['b'])*(x*1e7) + params['c']*(x*1e7)**2 + params['d']*(x*1e7)**3)
     def bb_func(**kwargs):
         observation = generator.main()
-        model_mat = [[model.main()(2*np.pi/lam_val, OPD_val) for lam_val in model_func(lambda_vector, kwargs)] for OPD_val in OPD_vector]
+        print(observation.shape)
+        model_mat = [[model.main(2*np.pi/lam_val, OPD_val) for lam_val in model_func(lambda_vector, kwargs)] for OPD_val in OPD_vector]
+        print(np.array(model_mat).shape)
 
         objective = -np.sum(np.square(observation - model_mat))
+        return objective
 
+    """
     optimizer =  BayesianOptimization(
         f=bb_func,
         pbounds=pbounds
         )
 
-    optimizer.maximize()
-    
+    """
+    #optimizer.maximize()
 
+    value_mat = []
+    value_vet = []
+    params = {}
+    for a in tqdm(np.linspace(pbounds['a'][0], pbounds['a'][1], 100)):
+        value_vet = []
+        for b in np.linspace(pbounds['b'][0], pbounds['b'][1], 100):
+            params = params_0.copy()
+            params['a'] = a
+            params['b'] = b
+            value_vet.append(bb_func(**params))
+        value_mat.append(value_vet)
+
+    plt.contourf(value_mat)
+    plt.colorbar()
+    np.savez(os.path.join(DATA_DIR, "power_data.npz"))
+    plt.imsave(os.path.join(DATA_DIR, "third_pow.png"))
+    
 if __name__ == "__main__":
     test()

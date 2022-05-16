@@ -1,0 +1,38 @@
+\begin{thebibliography}{1}
+
+\bibitem{Interferometer}
+David~F. {Buscher}, Roger~C. {Boysen}, Roger {Dace}, Martin {Fisher},
+  Christopher~A. {Haniff}, Eugene~B. {Seneta}, Xiaowei {Sun}, Donald M.~A.
+  {Wilson}, and John~S. {Young}.
+\newblock {Design and testing of an innovative delay line for the MROI}.
+\newblock In John~D. {Monnier}, Markus {Sch{\"o}ller}, and William~C. {Danchi},
+  editors, {\em Society of Photo-Optical Instrumentation Engineers (SPIE)
+  Conference Series}, volume 6268 of {\em Society of Photo-Optical
+  Instrumentation Engineers (SPIE) Conference Series}, page 62682I, June 2006.
+
+\bibitem{scikit}
+The scikit-learn development~team. David Cournapeau~et al.
+\newblock Scikit-learn for python.
+
+\bibitem{bo_impl}
+fmfn.
+\newblock Bayesian optmization implementation for python using scikit-learn.
+
+\bibitem{bo}
+Peter~I. Frazier.
+\newblock A tutorial on bayesian optimization, 2018.
+
+\bibitem{Li_2008}
+Chih-Hao Li, Andrew~J. Benedick, Peter Fendel, Alexander~G. Glenday, Franz~X.
+  Kärtner, David~F. Phillips, Dimitar Sasselov, Andrew Szentgyorgyi, and
+  Ronald~L. Walsworth.
+\newblock A laser frequency comb that enables radial velocity measurements with
+  a precision of 1{\hspace{0.167em}}cm{\hspace{0.167em}}s-1.
+\newblock {\em Nature}, 452(7187):610--612, apr 2008.
+
+\bibitem{exoplanets}
+Michel {Mayor} and Didier {Queloz}.
+\newblock {A Jupiter-mass companion to a solar-type star}.
+\newblock {\em Nature}, 378(6555):355--359, November 1995.
+
+\end{thebibliography}

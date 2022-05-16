@@ -1,7 +1,10 @@
 # project
 
-This is the repository for my Part III Project. It generates a summarized data for a setup consisting of an interferometer and spectrometer for the purpose of calibration later on. Currently have added parameters in config.json, need to add more sources of error.
+This is the repository for my Part III Project. 
 
-# running the code
+It has a generator of observations (generator.py), model production using novel integration tecnique (model.py) and a basic Bayesian Optimization
+routine in __main__.py.
 
-Execute as a module in a console. When prompted input either 'c' to generate another set of random exposures or 'b' to break the loop. Summarized data in 'data_1.npz'
+# running the code 
+
+Execute the code as the module. It is currently set to investigate parameter spaces of the objective function.

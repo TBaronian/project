@@ -1,0 +1,15 @@
+\documentclass{article}
+
+\title{Calibrating A Spectrometer Via Global Bayesian Optimization on a Reference Setup}
+
+\begin{document}
+\center{Abstract}
+\section{Introduction}
+\section{Theoretical Background}
+The process of calibrating a spectrometer for the purposes of exoplanet research requires
+extreamly precise input and measurement. To this end traditionally expensive methods
+are employed.
+\section{Process And Data}
+\section{Disctussion}
+\section{Conclusion}
+\end{document}
